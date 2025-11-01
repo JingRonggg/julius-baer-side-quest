@@ -50,8 +50,8 @@ def run_interactive_cli(config: TransferConfig, jwt_token: Optional[str] = None)
             result = transfer_money(from_acc, to_acc, amount, config, jwt_token=jwt_token)
             
             if result:
-                logger.info(f"Transfer completed successfully: {result}")
-                print(f"\n✓ Transfer successful! Transaction ID: {result.get('transactionId', 'N/A')}")
+                logger.info(f"Transfer completed: {result}")
+                print(f"\n✓ Transfer completed! Transaction ID: {result.get('transactionId', 'N/A')}")
             else:
                 logger.error("Transfer failed - check logs above for details")
                 print("\n✗ Transfer failed. Please try again.")
