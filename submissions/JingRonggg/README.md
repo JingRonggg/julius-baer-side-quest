@@ -17,12 +17,21 @@ Python 3.13+ (compatible with Python 3.10+)
 
 ## Setup
 
-### 1. Install Dependencies
+### 1. Create and Activate Virtual Environment
+```bash
+python -m venv venv
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
+```
+
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Configure (Optional)
+### 3. Configure (Optional)
 Copy `.env.example` to `.env` and customize if needed:
 ```bash
 cp .env.example .env
