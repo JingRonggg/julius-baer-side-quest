@@ -1,6 +1,7 @@
 """Command-line interface for money transfer system."""
 
 import logging
+from typing import Optional
 
 from config import TransferConfig
 from transfer import transfer_money
@@ -9,13 +10,13 @@ from validators import parse_amount
 logger = logging.getLogger(__name__)
 
 
-def run_interactive_cli(config: TransferConfig, jwt_token=None) -> None:
+def run_interactive_cli(config: TransferConfig, jwt_token: Optional[str] = None) -> None:
     """
     Run interactive command-line interface for transfers.
     
     Args:
-        config: Transfer configuration object
-        jwt_token: Optional JWT token for authenticated requests.
+        config (TransferConfig): Transfer configuration object.
+        jwt_token (Optional[str]): Optional JWT token for authenticated requests.
     """
     logger.info("Starting money transfer client...")
     logger.info(f"API URL: {config.api_url}")

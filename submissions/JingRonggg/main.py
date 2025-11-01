@@ -14,7 +14,15 @@ logging.basicConfig(
 
 
 def main() -> None:
-    """Main execution function."""
+    """
+    Main execution function for the money transfer client.
+
+    Prompts the user for authentication details, retrieves a JWT token,
+    and starts the interactive CLI.
+
+    Raises:
+        Exception: If authentication fails or invalid inputs are provided.
+    """
     config = TransferConfig.from_environment()
 
     # Prompt for username, password, and claim type

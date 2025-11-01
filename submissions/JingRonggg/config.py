@@ -8,13 +8,12 @@ from dataclasses import dataclass
 class TransferConfig:
     """
     Configuration for money transfer API client.
-    
-    Binary exponential backoff formula: backoff_factor * (2^retry_number)
-    With backoff_factor=1.0:
-    - Retry 1: 1s delay
-    - Retry 2: 2s delay
-    - Retry 3: 4s delay
-    - Retry 4: 8s delay
+
+    Attributes:
+        api_url (str): API endpoint URL.
+        timeout (int): Request timeout in seconds.
+        max_retries (int): Maximum number of retry attempts.
+        backoff_factor (float): Binary exponential backoff factor.
     """
     api_url: str
     timeout: int = 30
@@ -23,7 +22,12 @@ class TransferConfig:
     
     @classmethod
     def from_environment(cls) -> 'TransferConfig':
-        """Create configuration from environment variables with defaults."""
+        """
+        Create configuration from environment variables with defaults.
+
+        Returns:
+            TransferConfig: Configuration object populated from environment variables.
+        """
         return cls(
             api_url=os.getenv('TRANSFER_API_URL', 'http://localhost:8123'),
             timeout=int(os.getenv('TRANSFER_TIMEOUT', '30')),

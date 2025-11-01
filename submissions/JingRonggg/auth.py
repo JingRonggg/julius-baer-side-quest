@@ -1,3 +1,5 @@
+"""Authentication utilities for money transfer client."""
+
 import requests
 
 def get_jwt_token(api_url: str, username: str, password: str, claim: str = "enquiry") -> str:

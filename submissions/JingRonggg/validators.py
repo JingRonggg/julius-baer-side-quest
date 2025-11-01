@@ -4,14 +4,14 @@
 def validate_transfer_inputs(from_acc: str, to_acc: str, amount: float) -> None:
     """
     Validate transfer input parameters.
-    
+
     Args:
-        from_acc: Source account identifier
-        to_acc: Destination account identifier
-        amount: Transfer amount
-    
+        from_acc (str): Source account identifier.
+        to_acc (str): Destination account identifier.
+        amount (float): Transfer amount.
+
     Raises:
-        ValueError: If any validation fails
+        ValueError: If any validation fails.
     """
     if amount <= 0:
         raise ValueError(f"Amount must be positive, got: {amount}")
@@ -26,15 +26,15 @@ def validate_transfer_inputs(from_acc: str, to_acc: str, amount: float) -> None:
 def parse_amount(amount_str: str) -> float:
     """
     Parse and validate amount string.
-    
+
     Args:
-        amount_str: String representation of amount
-    
+        amount_str (str): String representation of amount.
+
     Returns:
-        Parsed float amount
-    
+        float: Parsed float amount.
+
     Raises:
-        ValueError: If amount string is invalid
+        ValueError: If amount string is invalid.
     """
     try:
         return float(amount_str)
