@@ -1,13 +1,3 @@
-"""
-Money Transfer API Client
-
-This module provides functionality to transfer money between accounts
-using a REST API endpoint.
-
-Author: jingronggg
-Date: November 2025
-"""
-
 import logging
 import os
 from decimal import Decimal
@@ -199,22 +189,59 @@ def transfer_money(
 
 
 def main() -> None:
-    """Main execution function with example usage."""
-    # Load configuration from environment
+    """Main execution function with continuous transfer loop."""
     config = TransferConfig.from_environment()
     
     logger.info("Starting money transfer client...")
     logger.info(f"API URL: {config.api_url}")
     
-    # Example usage: Transfer $100 from ACC1000 to ACC1001
-    result = transfer_money("ACC1000", "ACC1001", 100.00, config)
+    # Continuous loop for processing transfers
+    while True:
+        try:
+            print("\n" + "="*50)
+            print("Money Transfer System")
+            print("="*50)
+            
+            # Get account and amount details from user
+            from_acc = input("Enter source account (or 'quit' to exit): ").strip()
+            
+            # Allow user to exit the loop
+            if from_acc.lower() in ['quit', 'exit', 'q']:
+                logger.info("Exiting money transfer client...")
+                break
+            
+            to_acc = input("Enter destination account: ").strip()
+            amount_str = input("Enter amount to transfer: ").strip()
+            
+            # Validate and convert amount
+            try:
+                amount = float(amount_str)
+            except ValueError:
+                logger.error(f"Invalid amount: '{amount_str}'. Please enter a valid number.")
+                continue
+            
+            # Attempt the transfer
+            result = transfer_money(from_acc, to_acc, amount, config)
+            
+            if result:
+                logger.info(f"Transfer completed successfully: {result}")
+                print(f"\n✓ Transfer successful! Transaction ID: {result.get('transactionId', 'N/A')}")
+            else:
+                logger.error("Transfer failed - check logs above for details")
+                print("\n✗ Transfer failed. Please try again.")
+                
+        except KeyboardInterrupt:
+            logger.info("\nReceived keyboard interrupt. Exiting...")
+            break
+        except ValueError as e:
+            logger.error(f"Validation error: {str(e)}")
+            print(f"\n✗ Error: {str(e)}")
+        except Exception as e:
+            logger.error(f"Unexpected error in main loop: {type(e).__name__} - {str(e)}")
+            print(f"\n✗ Unexpected error: {str(e)}")
     
-    if result:
-        logger.info(f"Transfer completed successfully: {result}")
-    else:
-        logger.error("Transfer failed - check logs above for details")
+    print("\nThank you for using the Money Transfer System!")
 
 
-# Main execution block
 if __name__ == "__main__":
     main()
