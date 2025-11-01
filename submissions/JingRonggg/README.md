@@ -13,7 +13,7 @@ Python 3.13+ (compatible with Python 3.10+)
 #### **6. Modern Development Practices (🏆 Maximum Bonus)**
 #### **7. DevOps & Deployment (🏆🏆 Premium Bonus)**
 #### **8. User Experience & Interface (🏆🏆 Premium Bonus)**
-#### **9. Performance & Scalability (🏆🏆 Premium Bonus)**
+#### **9. Performance & Scalability (🏆🏆 Premium Bonus)** [Done]
 
 ## Setup
 
@@ -32,7 +32,9 @@ Available configuration options:
 - `TRANSFER_API_URL`: API endpoint (default: http://localhost:8123)
 - `TRANSFER_TIMEOUT`: Request timeout in seconds (default: 30)
 - `TRANSFER_MAX_RETRIES`: Maximum retry attempts (default: 3)
-- `TRANSFER_BACKOFF_FACTOR`: Retry backoff factor (default: 0.3)
+- `TRANSFER_BACKOFF_FACTOR`: Binary exponential backoff factor (default: 1.0)
+  - With 1.0: retry delays are 1s, 2s, 4s, 8s...
+  - With 0.5: retry delays are 0.5s, 1s, 2s, 4s...
 
 API ENDPOINTS:
 /authToken

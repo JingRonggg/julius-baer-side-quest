@@ -9,12 +9,13 @@ from validators import parse_amount
 logger = logging.getLogger(__name__)
 
 
-def run_interactive_cli(config: TransferConfig) -> None:
+def run_interactive_cli(config: TransferConfig, jwt_token=None) -> None:
     """
     Run interactive command-line interface for transfers.
     
     Args:
         config: Transfer configuration object
+        jwt_token: Optional JWT token for authenticated requests.
     """
     logger.info("Starting money transfer client...")
     logger.info(f"API URL: {config.api_url}")
@@ -45,7 +46,7 @@ def run_interactive_cli(config: TransferConfig) -> None:
                 continue
             
             # Attempt the transfer
-            result = transfer_money(from_acc, to_acc, amount, config)
+            result = transfer_money(from_acc, to_acc, amount, config, jwt_token=jwt_token)
             
             if result:
                 logger.info(f"Transfer completed successfully: {result}")

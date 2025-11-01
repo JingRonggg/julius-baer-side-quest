@@ -16,7 +16,8 @@ def transfer_money(
     from_acc: str,
     to_acc: str,
     amount: float,
-    config: Optional[TransferConfig] = None
+    config: Optional[TransferConfig] = None,
+    jwt_token: Optional[str] = None
 ) -> Optional[Dict[str, Any]]:
     """
     Transfer money from one account to another via API.
@@ -30,6 +31,7 @@ def transfer_money(
         to_acc: Destination account identifier (e.g., "ACC1001")
         amount: Amount to transfer in the account's currency
         config: Optional TransferConfig object. If None, loads from environment.
+        jwt_token: Optional JWT token for authenticated requests.
     
     Returns:
         JSON response from the API containing transfer confirmation,
@@ -71,14 +73,18 @@ def transfer_money(
         session = create_session_with_retries(config)
         
         # Send POST request to transfer endpoint
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "MoneyTransferClient/1.0"
+        }
+        if jwt_token:
+            headers["Authorization"] = f"Bearer {jwt_token}"
+
         response = session.post(
             url,
             json=data,
             timeout=config.timeout,
-            headers={
-                "Content-Type": "application/json",
-                "User-Agent": "MoneyTransferClient/1.0"
-            }
+            headers=headers
         )
         
         # Raise exception for HTTP error status codes (4xx, 5xx)
